@@ -1,7 +1,11 @@
-export default function App() {
-  return (
-    <div className="App">
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import {Navigation} from "./Navigation/Navigation.jsx";
 
-    </div>
+
+export default function App() {
+  const router = createBrowserRouter(Navigation);
+
+  return (
+      <RouterProvider router={router} />
   )
 }
