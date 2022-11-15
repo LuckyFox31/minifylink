@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import {COLORS} from "../Constants/Colors.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {BORDER} from "../Constants/Border.js";
+import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 
 export default function Header(){
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -55,7 +56,7 @@ const HeaderSection = styled.header`
 	position: fixed;
 	top: 0;
 
-  	@media screen and (min-width: 992px) {
+  	@media screen and (min-width: ${BREAKPOINTS.desktops}) {
       	flex-direction: row;
       	justify-content: space-between;
   	}
@@ -78,7 +79,7 @@ const Title = styled.p`
 	font-weight: ${FONT_WEIGHT.bold};
 	color: ${COLORS.white};
 
-  	@media screen and (min-width: 992px) {
+  	@media screen and (min-width: ${BREAKPOINTS.desktops}) {
       	font-size: ${FONT_SIZES.big};
   	}
 `;
@@ -87,7 +88,7 @@ const LinksWrapper = styled.ul`
 	list-style-type: none;
 	display: ${props => props.display};
 
-	@media screen and (min-width: 992px) {
+	@media screen and (min-width: ${BREAKPOINTS.desktops}) {
 		display: block;
 	}
 `;
@@ -99,7 +100,7 @@ const LinkContainer = styled.li`
   	justify-content: space-evenly;
   	height: 3rem;
 
-  	@media screen and (min-width: 992px) {
+  	@media screen and (min-width: ${BREAKPOINTS.desktops}) {
       	display: inline-block;
 	  	height: auto;
 
@@ -126,7 +127,7 @@ const IconContainer = styled.div`
 	display: grid;
 	place-items: center;
 
-  	@media screen and (min-width: 992px) {
+  	@media screen and (min-width: ${BREAKPOINTS.desktops}) {
     	display: none;
   	}
 `;
