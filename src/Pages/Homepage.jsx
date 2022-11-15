@@ -144,7 +144,7 @@ const MinifyUrlSubmitIconContainer = styled.div`
 
 const Wrapper = styled.section`
 	padding: 3rem 2rem 0 2rem;
-  	min-height: 45vh;
+  	min-height: 42vh;
 `;
 
 const CguInfo = styled.small`

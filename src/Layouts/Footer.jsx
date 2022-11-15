@@ -13,6 +13,7 @@ export default function Footer(){
 const FooterSection = styled.footer`
 	display: flex;
   	justify-content: center;
+  	padding: 1.5rem 0;
 `;
 
 const Copyrights = styled.small`
