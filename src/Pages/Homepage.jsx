@@ -27,6 +27,13 @@ export default function Homepage(){
 					</MinifyUrlSubmitButton>
 				</MinifyForm>
 			</TopPageWrapper>
+			<Wrapper>
+				<CguInfo>En cliquant sur Minifier l’URL, vous acceptez notre <a href="#">politique de confidentialité</a> et nos <a href="#">conditions générales d’utilisation</a></CguInfo>
+				<PresentationTitle>Qu’est-ce que MinifyLink ?</PresentationTitle>
+				<PresentationParagraph>
+					<strong>MinifyLink</strong> permet de transformer des URL longs et laids en URL courtes, agréables et mémorisables. Utilisez-le pour raccourcir des liens pour toutes les plateformes de médias sociaux, les blogs, les SMS, les e-mails, les publicités, ou à peu près partout où vous voulez les partager. <strong>Twitter</strong>, <strong>Facebook</strong>, <strong>YouTube</strong>, <strong>Instagram</strong>, <strong>WhatsApp</strong>, <strong>e-mails</strong>, <strong>SMS</strong>, <strong>vidéos</strong>...
+				</PresentationParagraph>
+			</Wrapper>
 		</>
 	)
 }
@@ -35,7 +42,7 @@ export default function Homepage(){
 const TopPageWrapper = styled.section`
   	position: relative;
 	background-color: ${COLORS.dark_blue};
-  	min-height: calc(40vh - 7rem);
+  	min-height: 40vh;
   	padding: 0 2rem 4rem 2rem;
   	display: flex;
   	flex-direction: column;
@@ -43,7 +50,7 @@ const TopPageWrapper = styled.section`
   	align-items: center;
   
   	@media screen and (min-width: ${BREAKPOINTS.tablet}){
-      	height: calc(50vh - 7rem);
+      	height: 50vh;
       	padding: 0 2rem 6rem 2rem;
 	}
 `;
@@ -133,6 +140,50 @@ const MinifyUrlSubmitIconContainer = styled.div`
   @media screen and (min-width: ${BREAKPOINTS.phone}) {
     display: none;
   }
+`;
+
+const Wrapper = styled.section`
+	padding: 3rem 2rem 0 2rem;
+  	min-height: 45vh;
+`;
+
+const CguInfo = styled.small`
+	display: block;
+  	text-align: center;
+  	color: ${COLORS.gray};
+  	font-size: ${FONT_SIZES.tiny};
+  
+  	a{
+		color: ${COLORS.gray};
+	}
+`;
+
+const PresentationTitle = styled.h3`
+	font-size: ${FONT_SIZES.regular};
+  	text-align: center;
+  	margin-top: 3rem;
+
+  	@media screen and (min-width: ${BREAKPOINTS.phone}) {
+      	font-size: ${FONT_SIZES.medium};
+  	}
+`;
+
+const PresentationParagraph = styled.p`
+  	margin-top: 1rem;
+	text-align: center;
+  	color: ${COLORS.black};
+  	font-size: ${FONT_SIZES.small};
+  	font-weight: ${FONT_WEIGHT.regular};
+  	line-height: 1.5rem;
+  
+  	strong{
+	  font-weight: ${FONT_WEIGHT.medium};
+	}
+  
+  	@media screen and (min-width: ${BREAKPOINTS.desktops}){
+      	font-size: ${FONT_SIZES.standard};
+	  	padding: 0 10rem;
+	}
 `;
 
 const Icon = {

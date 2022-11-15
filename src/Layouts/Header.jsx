@@ -43,6 +43,8 @@ export default function Header(){
 
 // Style
 const HeaderSection = styled.header`
+  	z-index: 100000;
+  	width: 100%;
 	min-height: 7rem;
 	padding: 2em;
 	background-color: ${COLORS.dark_blue};
@@ -50,7 +52,7 @@ const HeaderSection = styled.header`
   	flex-direction: column;
 	align-items: center;
 	justify-content: space-evenly;
-	position: sticky;
+	position: fixed;
 	top: 0;
 
   	@media screen and (min-width: 992px) {
