@@ -1,6 +1,7 @@
 export const FONT_SIZES = {
 	tiny: '0.7rem',
 	small: '0.8rem',
+	standard: '1rem',
 	regular: '1.1rem',
 	medium: '1.3rem',
 	big: '1.6rem',
