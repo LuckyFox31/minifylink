@@ -113,6 +113,12 @@ const LinkContainer = styled.li`
 		color: ${COLORS.white};
 		text-decoration: none;
 	  	font-weight: ${FONT_WEIGHT.semibold};
+	  	opacity: 1;
+	  	transition: opacity 0.3s ease;
+	  
+	  	&:hover{
+		  opacity: 0.7;
+		}
 	  
 		&.cta {
 			background-color: ${COLORS.white};
