@@ -8,6 +8,7 @@ import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {BORDER} from "../Constants/Border.js";
 import {SHADOW} from "../Constants/Shadow.js";
+import {Button} from "../Components/Button";
 
 export default function Homepage(){
 	return (
@@ -17,14 +18,14 @@ export default function Homepage(){
 				<SubTitle>Transformez une longue URL en un lien minifié plus simple et élégant à partager</SubTitle>
 				<MinifyForm>
 					<MinifyUrlInput type="url" placeholder="https://www.mon-url-tres-longue-a-partager.com" required/>
-					<MinifyUrlSubmitButton type="submit">
+					<Button type="submit" className="blue">
 						<MinifyUrlSubmitTextButton>
 							Minifier l'URL
 						</MinifyUrlSubmitTextButton>
 						<MinifyUrlSubmitIconContainer>
 							<HiPlay style={Icon} />
 						</MinifyUrlSubmitIconContainer>
-					</MinifyUrlSubmitButton>
+					</Button>
 				</MinifyForm>
 			</TopPageWrapper>
 			<Wrapper>
@@ -110,17 +111,6 @@ const MinifyUrlInput = styled.input`
   	&::placeholder{
 	  	color: ${COLORS.gray};
 	}
-`;
-
-const MinifyUrlSubmitButton = styled.button`
-  	height: 3rem;
-  	background-color: ${COLORS.blue};
-  	border: none;
-  	border-radius: ${BORDER.radius};
-  	box-shadow: ${SHADOW.small};
-  	width: 25%;
-  	color: ${COLORS.white};
-  	cursor: pointer;
 `;
 
 const MinifyUrlSubmitTextButton = styled.span`
