@@ -1,7 +1,8 @@
-// Librairies
+// Hooks
 import styled from "styled-components";
 // Components
 import { HiPlay } from "react-icons/hi";
+import RegisterModal from "../Molecules/RegisterModal";
 // Styles
 import {COLORS} from "../Constants/Colors.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
@@ -11,6 +12,7 @@ import {SHADOW} from "../Constants/Shadow.js";
 import {Button} from "../Components/Button";
 
 export default function Homepage(){
+
 	return (
 		<>
 			<TopPageWrapper>
@@ -18,7 +20,7 @@ export default function Homepage(){
 				<SubTitle>Transformez une longue URL en un lien minifié plus simple et élégant à partager</SubTitle>
 				<MinifyForm>
 					<MinifyUrlInput type="url" placeholder="https://www.mon-url-tres-longue-a-partager.com" required/>
-					<Button type="submit" className="blue">
+					<Button type="submit" className="blue minify shadow">
 						<MinifyUrlSubmitTextButton>
 							Minifier l'URL
 						</MinifyUrlSubmitTextButton>
@@ -115,8 +117,6 @@ const MinifyUrlInput = styled.input`
 
 const MinifyUrlSubmitTextButton = styled.span`
 	display: none;
-  	font-weight: ${FONT_WEIGHT.semibold};
-  	font-size: ${FONT_SIZES.standard};
   	
   	@media screen and (min-width: ${BREAKPOINTS.phone}){
 	  display: block;
