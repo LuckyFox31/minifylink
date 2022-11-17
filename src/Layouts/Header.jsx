@@ -4,15 +4,17 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 import { HiMenu, HiOutlineX } from "react-icons/hi"
 // Hooks
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 // Constants
 import {COLORS} from "../Constants/Colors.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {BORDER} from "../Constants/Border.js";
 import {BREAKPOINTS} from "../Constants/Breakpoints.js";
+import {RegisterModalContext} from "../Contexts/RegisterModalContext.jsx";
 
 export default function Header(){
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
+	const {toggleRegisterModal} = useContext(RegisterModalContext);
 
 	function toggleMenu(){
 		setMenuIsOpen(!menuIsOpen);
@@ -35,7 +37,7 @@ export default function Header(){
 					<Link>Connexion</Link>
 				</LinkContainer>
 				<LinkContainer>
-					<Link className="cta">Inscription</Link>
+					<Link className="cta" onClick={toggleRegisterModal}>Inscription</Link>
 				</LinkContainer>
 			</LinksWrapper>
 		</HeaderSection>
