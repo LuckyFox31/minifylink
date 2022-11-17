@@ -4,10 +4,8 @@ import SignInWithGoogleButton from "../Components/SignInWithGoogleButton";
 import styled from "styled-components";
 import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import FormInput from "../Components/FormInput";
-import Checkbox from "../Components/Checkbox";
 import {Button} from "../Components/Button";
 import {useContext} from "react";
-import {RegisterModalContext} from "../Contexts/RegisterModalContext.jsx";
 import {LoginModalContext} from "../Contexts/LoginModalContext.jsx";
 
 export default function LoginModal(){
