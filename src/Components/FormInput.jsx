@@ -2,12 +2,14 @@ import styled from "styled-components";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {COLORS} from "../Constants/Colors.js";
 import {BORDER} from "../Constants/Border.js";
+import {FormErrorMessage} from "./FormErrorMessage";
 
-export default function FormInput({name, placeholder, required, children}){
+export default function FormInput({name, type, placeholder, required, onChange, value, error, children}){
 	return (
 		<InputContainer>
 			<InputLabel htmlFor={name}>{children}{required ? <sup>*</sup> : null}</InputLabel>
-			<Input type="email" name={name} id={name} placeholder={placeholder} required={required} />
+			<Input type={type} name={name} id={name} placeholder={placeholder} required={required} onChange={onChange} value={value} />
+			{error && <FormErrorMessage>{error}</FormErrorMessage>}
 		</InputContainer>
 	)
 }

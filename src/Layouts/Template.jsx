@@ -9,10 +9,12 @@ import RegisterModal from "../Molecules/RegisterModal.jsx";
 import {RegisterModalContext} from "../Contexts/RegisterModalContext";
 import {LoginModalContext} from "../Contexts/LoginModalContext";
 import LoginModal from "../Molecules/LoginModal";
+import {UserContext} from "../Contexts/UserContext";
 
 export default function Template(){
 	const [registerModalIsOpen, setRegisterModalIsOpen] = useState(false);
 	const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+	const [user, setUser] = useState(null);
 
 	function toggleRegisterModal(){
 		setRegisterModalIsOpen(!registerModalIsOpen);
@@ -23,7 +25,7 @@ export default function Template(){
 	}
 
 	return (
-		<>
+		<UserContext.Provider value={{user, setUser: setUser}}>
 			<LoginModalContext.Provider value={{toggleLoginModal: toggleLoginModal}}>
 				<RegisterModalContext.Provider value={{toggleRegisterModal: toggleRegisterModal}}>
 					<Header />
@@ -35,6 +37,6 @@ export default function Template(){
 					{loginModalIsOpen ? <LoginModal /> : null}
 				</RegisterModalContext.Provider>
 			</LoginModalContext.Provider>
-		</>
+		</UserContext.Provider>
 	)
 }
