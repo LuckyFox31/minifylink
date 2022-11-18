@@ -1,20 +1,26 @@
+// Hooks
+import {useFormik} from "formik";
+import {useContext, useState} from "react";
+// Components
 import {Modal, ModalTitle} from "../Components/Modal";
 import SignInWithAppleButton from "../Components/SignInWithAppleButton";
 import SignInWithGoogleButton from "../Components/SignInWithGoogleButton";
-import styled from "styled-components";
-import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import FormInput from "../Components/FormInput";
 import Checkbox from "../Components/Checkbox";
 import {Button} from "../Components/Button";
-import {useContext, useState} from "react";
-import {RegisterModalContext} from "../Contexts/RegisterModalContext.jsx";
-import {useFormik} from "formik";
-import {RegisterInitialValues, RegisterScheme} from "../Schemes/RegisterScheme.js";
-import {createUserWithEmailAndPassword} from "firebase/auth";
-import {UserContext} from "../Contexts/UserContext.jsx";
-import {auth} from "../Firebase/FirebaseConfig.js";
-import {ERROR_CODE} from "../Constants/ErrorCode.js";
 import {FormErrorMessage} from "../Components/FormErrorMessage";
+import styled from "styled-components";
+// Constants
+import {BREAKPOINTS} from "../Constants/Breakpoints.js";
+import {ERROR_CODE} from "../Constants/ErrorCode.js";
+// Contexts
+import {RegisterModalContext} from "../Contexts/RegisterModalContext.jsx";
+import {UserContext} from "../Contexts/UserContext.jsx";
+// Firebase
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../Firebase/FirebaseConfig.js";
+// Schemes
+import {RegisterInitialValues, RegisterScheme} from "../Schemes/RegisterScheme.js";
 
 export default function RegisterModal(){
 	const {toggleRegisterModal} = useContext(RegisterModalContext);
