@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {COLORS} from "../Constants/Colors.js";
+import {FormErrorMessage} from "./FormErrorMessage.jsx";
 
-export default function Checkbox({name, required, children}){
+export default function Checkbox({name, required, onChange, value, error, children}){
 	return (
-		<CheckboxContainer>
-			<InputCheckbox type="checkbox" name={name} id={name} required={required} />
-			<CheckboxLabel htmlFor={name}>{children}</CheckboxLabel>
-		</CheckboxContainer>
+		<>
+			<CheckboxContainer>
+				<InputCheckbox type="checkbox" name={name} id={name} required={required} onChange={onChange} value={value} />
+				<CheckboxLabel htmlFor={name}>{children}</CheckboxLabel>
+			</CheckboxContainer>
+			{error && <FormErrorMessage>{error}</FormErrorMessage>}
+		</>
 	)
 }
 
