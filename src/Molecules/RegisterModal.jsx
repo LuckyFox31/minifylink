@@ -36,6 +36,7 @@ export default function RegisterModal(){
 					const user = userCredential.user;
 					setUser(user);
 					setError(null);
+					toggleRegisterModal();
 				})
 				.catch(error => {
 					const errorCode = error.code;
