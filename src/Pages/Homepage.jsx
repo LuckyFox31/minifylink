@@ -1,8 +1,9 @@
 // Hooks
-import styled from "styled-components";
+import {useFormik} from "formik";
+import {useContext} from "react";
 // Components
 import { HiPlay } from "react-icons/hi";
-import RegisterModal from "../Molecules/RegisterModal";
+import styled from "styled-components";
 // Styles
 import {COLORS} from "../Constants/Colors.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
@@ -10,17 +11,38 @@ import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {BORDER} from "../Constants/Border.js";
 import {SHADOW} from "../Constants/Shadow.js";
 import {Button} from "../Components/Button";
+// Contexts
+import {UserContext} from "../Contexts/UserContext.jsx";
+import {LoginModalContext} from "../Contexts/LoginModalContext.jsx";
+// Firebase
+import {saveLink} from "../Firebase/FirestoreConfig.js";
+// Schemes
+import {UrlInitialValues, UrlScheme} from "../Schemes/UrlScheme.js";
 
 export default function Homepage(){
+	const {user} = useContext(UserContext)
+	const {toggleLoginModal} = useContext(LoginModalContext);
+
+	const formik = useFormik({
+		validationSchema: UrlScheme,
+		initialValues: UrlInitialValues,
+		onSubmit: (values, {resetForm}) => {
+			if(user){
+				saveLink(values.url, user.uid).then(() => {
+					resetForm();
+				});
+			}
+		}
+	});
 
 	return (
 		<>
 			<TopPageWrapper>
 				<FirstTitle>Minifiez vos liens gratuitement</FirstTitle>
 				<SubTitle>Transformez une longue URL en un lien minifié plus simple et élégant à partager</SubTitle>
-				<MinifyForm>
-					<MinifyUrlInput type="url" placeholder="https://www.mon-url-tres-longue-a-partager.com" required/>
-					<Button type="submit" className="blue minify shadow">
+				<MinifyForm onSubmit={formik.handleSubmit}>
+					<MinifyUrlInput type="url" name="url" id="url" placeholder="https://www.mon-url-tres-longue-a-partager.com" required onChange={formik.handleChange} value={formik.values.url}/>
+					<Button type={user ? 'submit' : 'button'} className="blue minify shadow" onClick={!user ? toggleLoginModal : null}>
 						<MinifyUrlSubmitTextButton>
 							Minifier l'URL
 						</MinifyUrlSubmitTextButton>
