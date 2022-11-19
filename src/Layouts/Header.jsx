@@ -10,16 +10,35 @@ import {COLORS} from "../Constants/Colors.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {BORDER} from "../Constants/Border.js";
 import {BREAKPOINTS} from "../Constants/Breakpoints.js";
+// Contexts
 import {RegisterModalContext} from "../Contexts/RegisterModalContext.jsx";
 import {LoginModalContext} from "../Contexts/LoginModalContext.jsx";
+import {UserContext} from "../Contexts/UserContext.jsx";
+// Firebase
+import {signOut} from "firebase/auth";
+import {auth} from "../Firebase/FirebaseConfig.js";
 
 export default function Header(){
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const {toggleRegisterModal} = useContext(RegisterModalContext);
 	const {toggleLoginModal} = useContext(LoginModalContext);
+	const {user, setUser} = useContext(UserContext);
 
 	function toggleMenu(){
 		setMenuIsOpen(!menuIsOpen);
+	}
+
+	function disconnect(){
+		signOut(auth)
+			.then(() => {
+				setUser(null);
+			})
+			.catch(error => {
+				console.error(`
+				Impossible de déconnecter l'utilisateur.
+				${error}
+				`);
+			})
 	}
 
 	return (
@@ -35,12 +54,23 @@ export default function Header(){
 				</IconContainer>
 			</Wrapper>
 			<LinksWrapper display={menuIsOpen ? 'block' : 'none'}>
-				<LinkContainer>
-					<Link onClick={toggleLoginModal}>Connexion</Link>
-				</LinkContainer>
-				<LinkContainer>
-					<Link className="cta" onClick={toggleRegisterModal}>Inscription</Link>
-				</LinkContainer>
+				{
+					user ?
+						<>
+							<LinkContainer>
+								<Link className="cta" onClick={disconnect}>Se déconnecter</Link>
+							</LinkContainer>
+						</>
+						:
+						<>
+							<LinkContainer>
+								<Link onClick={toggleLoginModal}>Connexion</Link>
+							</LinkContainer>
+							<LinkContainer>
+								<Link className="cta" onClick={toggleRegisterModal}>Inscription</Link>
+							</LinkContainer>
+						</>
+				}
 			</LinksWrapper>
 		</HeaderSection>
 	)
