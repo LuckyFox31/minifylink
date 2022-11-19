@@ -40,8 +40,6 @@ export default function RegisterModal(){
 				})
 				.catch(error => {
 					const errorCode = error.code;
-					const errorMessage = error.message;
-					console.error(`${errorMessage} - Code : ${errorCode}`);
 					if(errorCode === ERROR_CODE.EMAIL_ALREADY_USED){
 						setError('Adresse email déjà utilisée');
 					} else {
