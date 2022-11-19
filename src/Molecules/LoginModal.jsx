@@ -39,9 +39,7 @@ export default function LoginModal(){
 				})
 				.catch(error => {
 					const errorCode = error.code;
-					const errorMessage = error.message;
-					console.error(`${errorMessage} - Code : ${errorCode}`);
-					if(errorCode === ERROR_CODE.USER_NOT_FOUND){
+					if(errorCode === ERROR_CODE.USER_NOT_FOUND || errorCode === ERROR_CODE.WRONG_PASSWORD){
 						setError('Adresse email ou mot de passe incorrect');
 					} else {
 						setError('Une erreur est survenue lors de la connexion, veuillez réessayer plus tard...')
