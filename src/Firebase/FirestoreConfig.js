@@ -1,8 +1,8 @@
 import { app } from "./FirebaseConfig.js";
-import {getFirestore, setDoc, doc} from "firebase/firestore";
+import {getFirestore, setDoc, doc, onSnapshot} from "firebase/firestore";
 import { v4 as uuid } from 'uuid';
 
-const database = getFirestore(app);
+export const database = getFirestore(app);
 
 export async function saveLink(originalLink, userID){
 	const minifiedLink = uuid().slice(0,8);
@@ -12,5 +12,9 @@ export async function saveLink(originalLink, userID){
 		timestamp: Date.now(),
 	}
 	const linksRoute = doc(database, userID, minifiedLink);
-	return await setDoc(linksRoute, docData);
+	return await setDoc(linksRoute, docData)
+		.then(() => {
+			return docData;
+		});
 }
+

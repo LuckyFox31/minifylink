@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 // Hooks
 import { Outlet } from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import RegisterModal from "../Molecules/RegisterModal.jsx";
 import {RegisterModalContext} from "../Contexts/RegisterModalContext";
 import {LoginModalContext} from "../Contexts/LoginModalContext";

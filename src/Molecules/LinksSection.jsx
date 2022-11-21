@@ -5,40 +5,76 @@ import {SHADOW} from "../Constants/Shadow.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {HiTrash, HiDuplicate} from "react-icons/hi";
+import {useContext, useEffect, useState} from "react";
+import {UserContext} from "../Contexts/UserContext.jsx";
+import {collection, onSnapshot} from "firebase/firestore";
+import {database} from "../Firebase/FirestoreConfig.js";
 
 export default function LinksSection(){
+	const {user} = useContext(UserContext);
+	const [links, setLinks] = useState([]);
+
+	useEffect(() => {
+		const unsubcribe = onSnapshot(collection(database, user.uid), (docs) => {
+			const data = [];
+			docs.forEach(doc => {
+				data.push(doc.data());
+			});
+			data.sort((x, y) => {
+				return y.timestamp - x.timestamp;
+			});
+
+			setLinks(data);
+		})
+
+		return () => {
+			unsubcribe();
+		}
+	}, []);
+
 	return (
 		<>
 			<SectionTitle>Mes liens</SectionTitle>
 			<Container>
-				<ContainerTable>
-					<thead>
-						<tr>
-							<th>Liens originaux</th>
-							<th>Liens minifiés</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td data-label="Lien original"><a href="#">[ORIGINAL LINK]</a></td>
-							<td data-label="Lien minifié"><a href="#">[MINIFIED LINK]</a></td>
-							<td data-label="Actions">
-								<ActionList>
-									<li>
-										<ActionButton>
-											<HiDuplicate color={COLORS.gray} />
-										</ActionButton>
-									</li>
-									<li>
-										<ActionButton>
-											<HiTrash color={COLORS.red} />
-										</ActionButton>
-									</li>
-								</ActionList>
-							</td>
-						</tr>
-					</tbody>
-				</ContainerTable>
+				{
+					links.length > 0 ?
+						<ContainerTable>
+							<thead>
+							<tr>
+								<th>Liens originaux</th>
+								<th>Liens minifiés</th>
+							</tr>
+							</thead>
+							<tbody>
+							{
+								links.map((link) => {
+									return (
+										<tr key={link.minifiedLink}>
+											<td data-label="Lien original"><a href={link.originalLink} target="_blank">{link.originalLink}</a></td>
+											<td data-label="Lien minifié"><a href={`https://minlk.me/${link.minifiedLink}`} target="_blank">https://minlk.me/{link.minifiedLink}</a></td>
+											<td data-label="Actions">
+												<ActionList>
+													<li>
+														<ActionButton>
+															<HiDuplicate color={COLORS.gray} />
+														</ActionButton>
+													</li>
+													<li>
+														<ActionButton>
+															<HiTrash color={COLORS.red} />
+														</ActionButton>
+													</li>
+												</ActionList>
+											</td>
+										</tr>
+									)
+								})
+							}
+							</tbody>
+						</ContainerTable>
+						:
+						<NoLinkParagraph>Vous n'avez pas (encore) de lien minifié :(</NoLinkParagraph>
+				}
 			</Container>
 		</>
 	)
@@ -194,4 +230,10 @@ const ActionButton = styled.button`
 	  height: 100%;
 	  width: 100%;
 	}
+`;
+
+const NoLinkParagraph = styled.p`
+	text-align: center;
+  	font-weight: ${FONT_WEIGHT.semibold};
+  	padding: 2rem 1rem;
 `;
