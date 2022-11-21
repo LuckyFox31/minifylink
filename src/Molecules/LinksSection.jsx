@@ -5,19 +5,31 @@ import {SHADOW} from "../Constants/Shadow.js";
 import {FONT_SIZES, FONT_WEIGHT} from "../Constants/Typography.js";
 import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {HiTrash, HiDuplicate} from "react-icons/hi";
-import {getLinksByUser} from "../Firebase/FirestoreConfig.js";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../Contexts/UserContext.jsx";
+import {collection, onSnapshot} from "firebase/firestore";
+import {database} from "../Firebase/FirestoreConfig.js";
 
 export default function LinksSection(){
 	const {user} = useContext(UserContext);
 	const [links, setLinks] = useState([]);
 
 	useEffect(() => {
-		getLinksByUser(user.uid)
-			.then(res => {
-				setLinks(res);
+		const unsubcribe = onSnapshot(collection(database, user.uid), (docs) => {
+			const data = [];
+			docs.forEach(doc => {
+				data.push(doc.data());
 			});
+			data.sort((x, y) => {
+				return y.timestamp - x.timestamp;
+			});
+
+			setLinks(data);
+		})
+
+		return () => {
+			unsubcribe();
+		}
 	}, []);
 
 	return (
@@ -37,7 +49,7 @@ export default function LinksSection(){
 							{
 								links.map((link) => {
 									return (
-										<tr>
+										<tr key={link.minifiedLink}>
 											<td data-label="Lien original"><a href={link.originalLink} target="_blank">{link.originalLink}</a></td>
 											<td data-label="Lien minifié"><a href={`https://minlk.me/${link.minifiedLink}`} target="_blank">https://minlk.me/{link.minifiedLink}</a></td>
 											<td data-label="Actions">
