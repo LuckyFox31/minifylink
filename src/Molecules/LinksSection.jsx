@@ -7,7 +7,7 @@ import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {HiTrash, HiDuplicate} from "react-icons/hi";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../Contexts/UserContext.jsx";
-import {collection, onSnapshot, deleteDoc, doc, query, where} from "firebase/firestore";
+import {onSnapshot, deleteDoc, doc, query, where} from "firebase/firestore";
 import {database, linksCollectionRef} from "../Firebase/FirestoreConfig.js";
 
 export default function LinksSection(){
@@ -35,7 +35,7 @@ export default function LinksSection(){
 	}, []);
 
 	function removeLink(link){
-		deleteDoc(doc(database, user.uid, link))
+		deleteDoc(doc(database, 'links', link))
 			.catch(error => {
 				consoleError(`Impossible de supprimer le lien. - ${error}`);
 			});
