@@ -65,7 +65,7 @@ export default function LinksSection(){
 									return (
 										<tr key={link.minifiedLink}>
 											<td data-label="Lien original"><a href={link.originalLink} target="_blank">{link.originalLink}</a></td>
-											<td data-label="Lien minifié"><a href={`https://minlk.me/${link.minifiedLink}`} target="_blank">https://minlk.me/{link.minifiedLink}</a></td>
+											<td data-label="Lien minifié"><a href={`https://${window.location.hostname}/${link.minifiedLink}`} target="_blank">https://{window.location.hostname}/{link.minifiedLink}</a></td>
 											<td data-label="Actions">
 												<ActionList>
 													<li>
