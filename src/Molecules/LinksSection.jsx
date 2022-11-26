@@ -7,7 +7,7 @@ import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {HiTrash, HiDuplicate} from "react-icons/hi";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../Contexts/UserContext.jsx";
-import {collection, onSnapshot} from "firebase/firestore";
+import {collection, onSnapshot, deleteDoc, doc} from "firebase/firestore";
 import {database} from "../Firebase/FirestoreConfig.js";
 
 export default function LinksSection(){
@@ -31,6 +31,13 @@ export default function LinksSection(){
 			unsubcribe();
 		}
 	}, []);
+
+	function removeLink(link){
+		deleteDoc(doc(database, user.uid, link))
+			.catch(error => {
+				consoleError(`Impossible de supprimer le lien. - ${error}`);
+			});
+	}
 
 	return (
 		<>
@@ -60,7 +67,7 @@ export default function LinksSection(){
 														</ActionButton>
 													</li>
 													<li>
-														<ActionButton>
+														<ActionButton onClick={() => removeLink(link.minifiedLink)}>
 															<HiTrash color={COLORS.red} />
 														</ActionButton>
 													</li>
