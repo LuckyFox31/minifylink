@@ -7,15 +7,17 @@ import {BREAKPOINTS} from "../Constants/Breakpoints.js";
 import {HiTrash, HiDuplicate} from "react-icons/hi";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../Contexts/UserContext.jsx";
-import {collection, onSnapshot, deleteDoc, doc} from "firebase/firestore";
-import {database} from "../Firebase/FirestoreConfig.js";
+import {collection, onSnapshot, deleteDoc, doc, query, where} from "firebase/firestore";
+import {database, linksCollectionRef} from "../Firebase/FirestoreConfig.js";
 
 export default function LinksSection(){
 	const {user} = useContext(UserContext);
 	const [links, setLinks] = useState([]);
 
+	const getLinksCreatedByUserQuery = query(linksCollectionRef, where('createdBy', '==', user.uid));
+
 	useEffect(() => {
-		const unsubcribe = onSnapshot(collection(database, user.uid), (docs) => {
+		const unsubcribe = onSnapshot(getLinksCreatedByUserQuery, (docs) => {
 			const data = [];
 			docs.forEach(doc => {
 				data.push(doc.data());
