@@ -39,6 +39,11 @@ export default function LinksSection(){
 			});
 	}
 
+	function copyToClipboard(link){
+		const baseUrl = window.location.hostname;
+		navigator.clipboard.writeText(`https://${baseUrl}/${link}`);
+	}
+
 	return (
 		<>
 			<SectionTitle>Mes liens</SectionTitle>
@@ -62,7 +67,7 @@ export default function LinksSection(){
 											<td data-label="Actions">
 												<ActionList>
 													<li>
-														<ActionButton>
+														<ActionButton onClick={() => copyToClipboard(link.minifiedLink)}>
 															<HiDuplicate color={COLORS.gray} />
 														</ActionButton>
 													</li>
